@@ -26,17 +26,28 @@
 </script>
 
 <script lang="ts">
+	import { fly } from 'svelte/transition';
+
 	export let movieDetail: Movie;
 
 	function numberWithCommas(x: number | undefined): string {
-		if (!x) return '';
+		if (!x) return '0';
 
 		return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
 	}
 </script>
 
-<div class="movie-details">
-	<img src="https://image.tmdb.org/t/p/w500{movieDetail.poster_path}" alt={movieDetail.title} />
+<div
+	class="movie-details"
+	in:fly={{ y: 50, duration: 500, delay: 500 }}
+	out:fly={{ duration: 500 }}
+>
+	<div class="img-container">
+		<img
+			src="https://image.tmdb.org/t/p/original{movieDetail.backdrop_path}"
+			alt={movieDetail.title}
+		/>
+	</div>
 
 	<div class="txt-container">
 		<h1>{movieDetail.title}</h1>
@@ -62,20 +73,19 @@
 		padding: 1rem 0rem;
 	}
 
+	.img-container {
+		width: 100%;
+	}
+
 	img {
-		height: 70vh;
+		object-fit: cover;
+
+		width: 100%;
 		border-radius: 1rem;
 	}
 
 	.movie-details {
-		margin: 2rem;
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: space-around;
-	}
-
-	.txt-container {
-		width: 40vw;
+		margin: 2rem 20%;
 	}
 
 	span {
