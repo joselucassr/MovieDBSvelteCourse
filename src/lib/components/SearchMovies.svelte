@@ -83,4 +83,11 @@
 	.selected {
 		background: rgb(50, 50, 50);
 	}
+
+	@media (max-width: 768px) {
+		.search {
+			width: 100%;
+			margin: 1rem 0;
+		}
+	}
 </style>
